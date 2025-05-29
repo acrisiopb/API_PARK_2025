@@ -17,6 +17,7 @@ import com.apirest.demo_park_api.entity.Usuario;
 import com.apirest.demo_park_api.service.UsuarioService;
 import com.apirest.demo_park_api.web.dto.UsuarioCreateDTO;
 import com.apirest.demo_park_api.web.dto.UsuarioResponseDto;
+import com.apirest.demo_park_api.web.dto.UsuarioSenhaDto;
 import com.apirest.demo_park_api.web.dto.mapper.UsuarioMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -44,9 +45,13 @@ public class UsuarioController {
 
     // ALTERAR SENHA
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> upadatePassword(@PathVariable Long id, @RequestBody Usuario usuario) {
-        Usuario user = usuarioService.editarSenha(id, usuario.getPassword());
-        return ResponseEntity.ok(user);
+    public ResponseEntity<Void> upadatePassword(@PathVariable Long id, @RequestBody UsuarioSenhaDto dto) {
+        Usuario user = usuarioService.editarSenha(id, dto.getSenhaAtual(), dto.getNovaSenha(), dto.getConfirmaSenha());
+        // Retorna uma resposta HTTP com o status 204 No Content.
+        // Esse status indica que a requisição foi processada com sucesso,
+        // mas que não há conteúdo para ser retornado no corpo da resposta.
+        // Muito usado, por exemplo, após uma exclusão (DELETE) bem-sucedida.
+        return ResponseEntity.noContent().build();
     }
 
     // BUSCAR TODOS OS USUARIOS
