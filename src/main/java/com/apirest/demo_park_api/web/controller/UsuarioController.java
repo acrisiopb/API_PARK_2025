@@ -20,6 +20,7 @@ import com.apirest.demo_park_api.web.dto.UsuarioResponseDto;
 import com.apirest.demo_park_api.web.dto.UsuarioSenhaDto;
 import com.apirest.demo_park_api.web.dto.mapper.UsuarioMapper;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor // injeção de dependencia via construtor / lombok
@@ -31,7 +32,7 @@ public class UsuarioController {
 
     // CRIAR USUARIO
     @PostMapping
-    public ResponseEntity<UsuarioResponseDto> create(@RequestBody UsuarioCreateDTO createDTO) {
+    public ResponseEntity<UsuarioResponseDto> create(@Valid @RequestBody UsuarioCreateDTO createDTO) {
         Usuario user = usuarioService.salvar(UsuarioMapper.toUsuario(createDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDTO(user));
     }
