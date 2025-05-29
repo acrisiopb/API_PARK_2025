@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.apirest.demo_park_api.entity.Usuario;
 import com.apirest.demo_park_api.service.UsuarioService;
+import com.apirest.demo_park_api.web.dto.UsuarioCreateDTO;
+import com.apirest.demo_park_api.web.dto.UsuarioResponseDto;
+import com.apirest.demo_park_api.web.dto.mapper.UsuarioMapper;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor // injeção de dependencia via construtor / lombok
@@ -26,9 +30,9 @@ public class UsuarioController {
 
     // CRIAR USUARIO
     @PostMapping
-    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario) {
-        Usuario user = usuarioService.salvar(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    public ResponseEntity<UsuarioResponseDto> create(@RequestBody UsuarioCreateDTO createDTO) {
+        Usuario user = usuarioService.salvar(UsuarioMapper.toUsuario(createDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDTO(user));
     }
 
     // BUSCAR USUARIO POR ID
