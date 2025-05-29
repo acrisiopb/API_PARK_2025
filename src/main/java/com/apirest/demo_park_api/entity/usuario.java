@@ -20,7 +20,7 @@ import lombok.*;
 @ToString
 @Entity
 @Table(name = "usuarios")
-public class usuario implements Serializable {
+public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -68,7 +68,7 @@ public class usuario implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        usuario other = (usuario) obj;
+        Usuario other = (Usuario) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
