@@ -1,5 +1,7 @@
 package com.apirest.demo_park_api.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,16 +31,25 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
+    // BUSCAR USUARIO POR ID
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> getById(@PathVariable Long id) {
         Usuario user = usuarioService.buscarPorId(id);
         return ResponseEntity.ok(user);
     }
 
+    // ALTERAR SENHA
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> upadatePassword(@PathVariable Long id, @RequestBody Usuario usuario) {
         Usuario user = usuarioService.editarSenha(id, usuario.getPassword());
         return ResponseEntity.ok(user);
+    }
+
+    // BUSCAR TODOS OS USUARIOS
+    @GetMapping
+    public ResponseEntity<List<Usuario>> getAll() {
+        List<Usuario> users = usuarioService.buscarTodos();
+        return ResponseEntity.ok(users);
     }
 
 }
