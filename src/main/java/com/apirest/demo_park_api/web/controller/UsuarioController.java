@@ -66,6 +66,16 @@ public class UsuarioController {
     }
 
     // ALTERAR SENHA
+    @Operation(summary = "Atualizar senha.", description = "Atualizar senha.", responses = {
+
+            @ApiResponse(responseCode = "204", description = "Senha atualizada com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class))),
+
+            @ApiResponse(responseCode = "400", description = "Senha não confere.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+
+            @ApiResponse(responseCode = "404", description = "Recurso não encontrado.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+
+            @ApiResponse(responseCode = "422", description = "Erro de validação nos campos enviados. Verifique os detalhes e tente novamente.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+    })
     @PutMapping("/{id}")
     public ResponseEntity<Void> upadatePassword(@PathVariable Long id, @Valid @RequestBody UsuarioSenhaDto dto) {
         Usuario user = usuarioService.editarSenha(id, dto.getSenhaAtual(), dto.getNovaSenha(), dto.getConfirmaSenha());
@@ -77,6 +87,10 @@ public class UsuarioController {
     }
 
     // BUSCAR TODOS OS USUARIOS
+    @Operation(summary = "Lista todos os usuários.", description = "Lista todos os usuários.", responses = {
+            @ApiResponse(responseCode = "200", description = "Usuários recuperado com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioResponseDto.class))),
+
+    })
     @GetMapping
     public ResponseEntity<List<UsuarioResponseDto>> getAll() {
         List<Usuario> users = usuarioService.buscarTodos();
