@@ -46,7 +46,7 @@ public class UsuarioController {
 
     // ALTERAR SENHA
     @PutMapping("/{id}")
-    public ResponseEntity<Void> upadatePassword(@PathVariable Long id, @RequestBody UsuarioSenhaDto dto) {
+    public ResponseEntity<Void> upadatePassword(@PathVariable Long id, @Valid @RequestBody UsuarioSenhaDto dto) {
         Usuario user = usuarioService.editarSenha(id, dto.getSenhaAtual(), dto.getNovaSenha(), dto.getConfirmaSenha());
         // Retorna uma resposta HTTP com o status 204 No Content.
         // Esse status indica que a requisição foi processada com sucesso,
