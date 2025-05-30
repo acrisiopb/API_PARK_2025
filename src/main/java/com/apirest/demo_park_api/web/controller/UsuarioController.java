@@ -38,13 +38,13 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     // CRIAR USUARIO
-    @Operation(summary = "Criar um novo usuário", description = "Recurso para criar um novo usuário", responses = {
+    @Operation(summary = "Criar um novo usuário.", description = "Recurso para criar um novo usuário.", responses = {
 
-            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioResponseDto.class))),
+            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioResponseDto.class))),
 
-            @ApiResponse(responseCode = "409", description = "Usuário e-mail já cadastrado no sistema", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+            @ApiResponse(responseCode = "409", description = "Usuário e-mail já cadastrado no sistema.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
 
-            @ApiResponse(responseCode = "422", description = "Recursos não processado por dados de entrada invalidos", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
+            @ApiResponse(responseCode = "422", description = "Recursos não processado por dados de entrada invalidos.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
     })
     @PostMapping
     public ResponseEntity<UsuarioResponseDto> create(@Valid @RequestBody UsuarioCreateDTO createDTO) {
@@ -53,6 +53,12 @@ public class UsuarioController {
     }
 
     // BUSCAR USUARIO POR ID
+    @Operation(summary = "Recuperar um usuário pelo id.", description = "Recuperar um usuário pelo id.", responses = {
+
+            @ApiResponse(responseCode = "200", description = "Recurso recuperado com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioResponseDto.class))),
+
+            @ApiResponse(responseCode = "404", description = "Recurso não encontrado.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
+    })
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioResponseDto> getById(@PathVariable Long id) {
         Usuario user = usuarioService.buscarPorId(id);
