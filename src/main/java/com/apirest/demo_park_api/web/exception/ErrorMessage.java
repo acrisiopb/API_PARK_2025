@@ -7,12 +7,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.*;
 
 @Getter
 @Setter
 @ToString
+@JsonInclude(JsonInclude.Include.NON_NULL) // "Ao converter este objeto para JSON, ignore (não inclua) os campos que
+                                           // estiverem null."
 public class ErrorMessage {
 
     private String path;
