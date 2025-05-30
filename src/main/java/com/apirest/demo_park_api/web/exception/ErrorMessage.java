@@ -43,6 +43,20 @@ public class ErrorMessage {
         addErrors(result);
     }
 
+    /**
+     * Adiciona os erros de validação capturados no objeto BindingResult a um mapa
+     * local.
+     * 
+     * O método percorre todos os erros de campo (FieldError) presentes no
+     * BindingResult
+     * e os armazena em um mapa, onde a chave é o nome do campo com erro e o valor é
+     * a mensagem de erro correspondente.
+     *
+     * Esse mapa pode ser usado para retornar mensagens de erro mais organizadas
+     * e compreensíveis ao cliente da API.
+     *
+     * @param result o BindingResult que contém os erros de validação.
+     */
     private void addErrors(BindingResult result) {
         this.errors = new HashMap<>();
         for (FieldError fieldError : result.getFieldErrors()) {
