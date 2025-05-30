@@ -8,6 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.apirest.demo_park_api.exception.EntityNotFoundException;
 import com.apirest.demo_park_api.exception.UsernameUniqueViolationException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -48,6 +49,20 @@ public class ApiExceptionHandler {
                         "Campo(s) inválido(s)", // Mensagem genérica de erro
                         result // Passa o BindingResult para coletar os erros de validação
                 ));
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ErrorMessage> entityNotFoundException(EntityNotFoundException ex,
+            HttpServletRequest request) {
+
+        log.error("Api Error - ", ex);
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(
+                        request,
+                        HttpStatus.NOT_FOUND,
+                        ex.getMessage()));
     }
 
     @ExceptionHandler(UsernameUniqueViolationException.class)
