@@ -273,4 +273,20 @@ public class UsuarioIT {
         org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
         org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(400);
     }
+
+    @Test
+    public void buscarTodosUsuarios_RetornarUsuarioComStatus200() {
+        UsuarioResponseDto[] users = testClient
+                .get()
+                .uri("/api/v1/usuarios")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(UsuarioResponseDto[].class)
+                .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(users).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(users.length).isEqualTo(1);
+
+    }
+
 }
