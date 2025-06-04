@@ -17,6 +17,6 @@ public class UsuarioLoginDto {
     private String username;
 
     @NotBlank
-    @Size(min = 6, max = 6)
+    @Size(min = 6, message = "A senha deve ter no mínimo 6 caracteres")
     private String password;
 }

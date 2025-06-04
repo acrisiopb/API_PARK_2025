@@ -14,7 +14,7 @@ import com.apirest.demo_park_api.jwt.JwtUserDetailsService;
 import com.apirest.demo_park_api.web.dto.UsuarioLoginDto;
 import com.apirest.demo_park_api.web.exception.ErrorMessage;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +45,6 @@ public class AutenticacaoController {
         }
         return ResponseEntity.badRequest()
                 .body(new ErrorMessage(request, HttpStatus.BAD_REQUEST, "Credenciais Inválidas"));
-
     }
+
 }
