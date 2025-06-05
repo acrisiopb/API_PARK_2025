@@ -27,6 +27,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -55,11 +56,12 @@ public class UsuarioController {
     }
 
     // BUSCAR USUARIO POR ID
-    @Operation(summary = "Recuperar um usuário pelo id.", description = "Recuperar um usuário pelo id.", responses = {
+    @Operation(summary = "Recuperar um usuário pelo id.", security = @SecurityRequirement(name = "security"), description = "Requisição exige um Beare Token.", responses = {
 
             @ApiResponse(responseCode = "200", description = "Recurso recuperado com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioResponseDto.class))),
-
+            @ApiResponse(responseCode = "403", description = "Usuário sem permissão para acessar este recurso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
             @ApiResponse(responseCode = "404", description = "Recurso não encontrado.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
+
     })
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') OR (hasRole('CLIENTE') AND #id == authentication.principal.id) ")
@@ -69,7 +71,7 @@ public class UsuarioController {
     }
 
     // ALTERAR SENHA
-    @Operation(summary = "Atualizar senha.", description = "Atualizar senha.", responses = {
+    @Operation(summary = "Atualizar senha.", description = "Requisição exige um Beare Token.", security = @SecurityRequirement(name = "security"), responses = {
 
             @ApiResponse(responseCode = "204", description = "Senha atualizada com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class))),
 
@@ -77,12 +79,15 @@ public class UsuarioController {
 
             @ApiResponse(responseCode = "404", description = "Recurso não encontrado.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
 
+            @ApiResponse(responseCode = "403", description = "Usuário sem permissão para acessar este recurso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+
             @ApiResponse(responseCode = "422", description = "Erro de validação nos campos enviados. Verifique os detalhes e tente novamente.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
     })
 
     @PatchMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE') AND (#id == authentication.principal.id)")
     public ResponseEntity<Void> upadatePassword(@PathVariable Long id, @Valid @RequestBody UsuarioSenhaDto dto) {
+
         Usuario user = usuarioService.editarSenha(id, dto.getSenhaAtual(), dto.getNovaSenha(), dto.getConfirmaSenha());
         // Retorna uma resposta HTTP com o status 204 No Content.
         // Esse status indica que a requisição foi processada com sucesso,
@@ -92,9 +97,9 @@ public class UsuarioController {
     }
 
     // BUSCAR TODOS OS USUARIOS
-    @Operation(summary = "Lista todos os usuários.", description = "Lista todos os usuários.", responses = {
+    @Operation(summary = "Lista todos os usuários.", description = "Requisição exige um Beare Token.", security = @SecurityRequirement(name = "security"), responses = {
             @ApiResponse(responseCode = "200", description = "Usuários recuperado com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioResponseDto.class))),
-
+            @ApiResponse(responseCode = "403", description = "Usuário sem permissão para acessar este recurso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
     })
 
     @GetMapping
