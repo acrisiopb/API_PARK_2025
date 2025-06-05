@@ -28,12 +28,24 @@ public class SpringSecurityConfig {
                 .formLogin(form -> form.disable())
                 .httpBasic(basic -> basic.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/swagger-ui.html",
+                                "/docs-demo-park-api.html",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-resources/**",
+                                "/webjars/**",
+                                "/docs-demo-park-api",
+                                "/docs-demo-park-api/**")
+                        .permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/usuarios").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth").permitAll()
                         .anyRequest().authenticated())
+
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling(ex -> ex .authenticationEntryPoint(new JwtAuthenticationEntryPoint())).build();
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(new JwtAuthenticationEntryPoint()))
+                .build();
     }
 
     @Bean
