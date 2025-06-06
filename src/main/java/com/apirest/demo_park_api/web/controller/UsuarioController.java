@@ -73,11 +73,11 @@ public class UsuarioController {
     // ALTERAR SENHA
     @Operation(summary = "Atualizar senha.", description = "Requisição exige um Beare Token.", security = @SecurityRequirement(name = "security"), responses = {
 
-            @ApiResponse(responseCode = "204", description = "Senha atualizada com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class))),
+            @ApiResponse(responseCode = "204", description = "Senha atualizada com sucesso." /* ,  content = @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class))*/),
 
             @ApiResponse(responseCode = "400", description = "Senha não confere.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
 
-            @ApiResponse(responseCode = "404", description = "Recurso não encontrado.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+            // @ApiResponse(responseCode = "404", description = "Recurso não encontrado.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
 
             @ApiResponse(responseCode = "403", description = "Usuário sem permissão para acessar este recurso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
 
@@ -88,7 +88,7 @@ public class UsuarioController {
     @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE') AND (#id == authentication.principal.id)")
     public ResponseEntity<Void> upadatePassword(@PathVariable Long id, @Valid @RequestBody UsuarioSenhaDto dto) {
 
-        Usuario user = usuarioService.editarSenha(id, dto.getSenhaAtual(), dto.getNovaSenha(), dto.getConfirmaSenha());
+       /* Usuario user = */ usuarioService.editarSenha(id, dto.getSenhaAtual(), dto.getNovaSenha(), dto.getConfirmaSenha());
         // Retorna uma resposta HTTP com o status 204 No Content.
         // Esse status indica que a requisição foi processada com sucesso,
         // mas que não há conteúdo para ser retornado no corpo da resposta.
