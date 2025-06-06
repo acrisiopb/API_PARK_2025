@@ -304,9 +304,11 @@ public class UsuarioIT {
         @Test
         public void editarSenha_comCamposInvalidos_RetornarErrorMessageComStatus422() {
                 ErrorMessage responseBody = testClient
-                                .put()
+                                .patch()
                                 .uri("/api/v1/usuarios/100")
                                 .contentType(MediaType.APPLICATION_JSON)
+                                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "testeApi@gmail.com",
+                                                "123456"))
                                 .bodyValue(new UsuarioSenhaDto("", "", ""))
                                 .exchange()
                                 .expectStatus().isEqualTo(422)
@@ -317,9 +319,11 @@ public class UsuarioIT {
                 org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
 
                 responseBody = testClient
-                                .put()
+                                .patch()
                                 .uri("/api/v1/usuarios/100")
                                 .contentType(MediaType.APPLICATION_JSON)
+                                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "testeApi@gmail.com",
+                                                "123456"))
                                 .bodyValue(new UsuarioSenhaDto("12", "12", "12"))
                                 .exchange()
                                 .expectStatus().isEqualTo(422)
@@ -330,8 +334,10 @@ public class UsuarioIT {
                 org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
 
                 responseBody = testClient
-                                .put()
+                                .patch()
                                 .uri("/api/v1/usuarios/100")
+                                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "testeApi@gmail.com",
+                                                "123456"))
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .bodyValue(new UsuarioSenhaDto("1234567", "1234567", "1234567"))
                                 .exchange()
@@ -348,6 +354,8 @@ public class UsuarioIT {
                 ErrorMessage responseBody = testClient
                                 .patch()
                                 .uri("/api/v1/usuarios/100")
+                               .headers(JwtAuthentication.getHeaderAuthorization(testClient, "testeApi@gmail.com",
+                                                "123456"))
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .bodyValue(new UsuarioSenhaDto("123456", "123456", "000000"))
                                 .exchange()
@@ -361,6 +369,8 @@ public class UsuarioIT {
                 responseBody = testClient
                                 .patch()
                                 .uri("/api/v1/usuarios/100")
+                                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "testeApi@gmail.com",
+                                                "123456"))
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .bodyValue(new UsuarioSenhaDto("000000", "123456", "123456"))
                                 .exchange()
