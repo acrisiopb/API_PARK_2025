@@ -12,7 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.apirest.demo_park_api.jwt.JwtToken;
 import com.apirest.demo_park_api.jwt.JwtUserDetailsService;
 import com.apirest.demo_park_api.web.dto.UsuarioLoginDto;
+import com.apirest.demo_park_api.web.dto.UsuarioResponseDto;
 import com.apirest.demo_park_api.web.exception.ErrorMessage;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,6 +27,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+@Tag(name = "Autenticação", description = "Recurso para autenticação de API")
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -29,6 +37,14 @@ public class AutenticacaoController {
     private final JwtUserDetailsService detailsService;
     private final AuthenticationManager authenticationManager;
 
+       @Operation(summary = "Autenticar na API.", description = "Recurso de autenticação na API.", responses = {
+
+            @ApiResponse(responseCode = "200", description = "Autenticação realizada com sucesso e retorno de um bearer Token.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioResponseDto.class))),
+
+            @ApiResponse(responseCode = "409", description = "Credenciais inválidas." , content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+
+            @ApiResponse(responseCode = "422", description = "Campo(s) Inválido(s).", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
+    })
     @PostMapping("/auth")
     public ResponseEntity<?> authenticar(@RequestBody @Valid UsuarioLoginDto dto, HttpServletRequest request) {
         log.info("Processo de autenticação pelo login {}", dto.getUsername());
