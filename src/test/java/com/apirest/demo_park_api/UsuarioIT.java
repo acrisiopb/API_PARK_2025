@@ -387,13 +387,15 @@ public class UsuarioIT {
                 UsuarioResponseDto[] users = testClient
                                 .get()
                                 .uri("/api/v1/usuarios")
+                                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "testeApi@gmail.com",
+                                                "123456"))
                                 .exchange()
                                 .expectStatus().isOk()
                                 .expectBody(UsuarioResponseDto[].class)
                                 .returnResult().getResponseBody();
 
                 org.assertj.core.api.Assertions.assertThat(users).isNotNull();
-                org.assertj.core.api.Assertions.assertThat(users.length).isEqualTo(1);
+                org.assertj.core.api.Assertions.assertThat(users.length).isEqualTo(3);
 
         }
 
