@@ -37,11 +37,11 @@ public class AutenticacaoController {
     private final JwtUserDetailsService detailsService;
     private final AuthenticationManager authenticationManager;
 
-       @Operation(summary = "Autenticar na API.", description = "Recurso de autenticação na API.", responses = {
+    @Operation(summary = "Autenticar na API.", description = "Recurso de autenticação na API.", responses = {
 
             @ApiResponse(responseCode = "200", description = "Autenticação realizada com sucesso e retorno de um bearer Token.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioResponseDto.class))),
 
-            @ApiResponse(responseCode = "409", description = "Credenciais inválidas." , content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+            @ApiResponse(responseCode = "409", description = "Credenciais inválidas.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
 
             @ApiResponse(responseCode = "422", description = "Campo(s) Inválido(s).", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
     })
@@ -59,8 +59,8 @@ public class AutenticacaoController {
         } catch (AuthenticationException ex) {
             log.warn("Bad credentials from username '{}'", dto.getUsername());
         }
-        return ResponseEntity.badRequest()
-                .body(new ErrorMessage(request, HttpStatus.BAD_REQUEST, "Credenciais Inválidas"));
+        return ResponseEntity.unprocessableEntity()
+                .body(new ErrorMessage(request, HttpStatus.UNPROCESSABLE_ENTITY, "Credenciais Inválidas"));
     }
 
 }
