@@ -1,6 +1,7 @@
 package com.apirest.demo_park_api.service;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -8,6 +9,7 @@ import com.apirest.demo_park_api.entity.Cliente;
 import com.apirest.demo_park_api.repository.ClienteRepository;
 import com.apirest.demo_park_api.web.exception.CpfUniqueViolationException;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -24,6 +26,12 @@ public class ClienteService {
                     String.format("CPF '%s' não pode ser cadastrado, já existe no sistema", cliente.getCpf())
             );
         }
+    }
+    @Transactional(readOnly = true)
+    public Cliente buscarPorId(Long id) {
+        return clienteRepository.findById(id).orElseThrow(
+            () -> new EntityNotFoundException(String.format("Cliente  id = %s , não encontrado." , id))
+        );
     }
 
 }
