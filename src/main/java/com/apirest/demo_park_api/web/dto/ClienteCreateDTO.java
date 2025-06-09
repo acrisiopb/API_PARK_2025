@@ -2,8 +2,7 @@ package com.apirest.demo_park_api.web.dto;
 
 import org.hibernate.validator.constraints.br.CPF;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Getter

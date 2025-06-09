@@ -10,5 +10,4 @@ public class ClienteResponseDto {
     private Long id;
     private String nome;
     private String cpf;
-
 }
