@@ -3,6 +3,8 @@ package com.apirest.demo_park_api.web.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +27,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RequestBody;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
 @Tag(name = "Clientes", description = "Contém todas as operações relativas ao recurso de um cliente")
 @RequiredArgsConstructor
 @RestController
@@ -55,6 +58,24 @@ public class ClienteController {
         cliente.setUsuaurio(usuarioService.buscarPorId(userDetails.getId()));
         clienteService.salvar(cliente);
         return ResponseEntity.status(201).body(ClienteMapper.toDto(cliente));
+    }
+
+    @Operation(summary = "Localizar um cliente.", description = "Recurso para localizar um cliente pelo ID."
+            +
+            "Requisição exige uso de um bearer token. Acesso restrito a Role = 'ADMIN' ", responses = {
+
+                    @ApiResponse(responseCode = "200", description = "Recurso localizado com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ClienteResponseDto.class))),
+
+                    @ApiResponse(responseCode = "404", description = "Cliente não encontrado.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+
+                    @ApiResponse(responseCode = "403", description = "Recursos não permitido ao perfil CLIENTE.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
+
+    })
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ClienteResponseDto> getById(@PathVariable Long id) {
+        Cliente cliente = clienteService.buscarPorId(id);
+        return ResponseEntity.ok(ClienteMapper.toDto(cliente));
     }
 
 }
