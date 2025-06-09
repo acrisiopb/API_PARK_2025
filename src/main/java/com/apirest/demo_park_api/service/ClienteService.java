@@ -6,10 +6,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.apirest.demo_park_api.entity.Cliente;
+import com.apirest.demo_park_api.exception.EntityNotFoundException;
 import com.apirest.demo_park_api.repository.ClienteRepository;
 import com.apirest.demo_park_api.web.exception.CpfUniqueViolationException;
 
-import jakarta.persistence.EntityNotFoundException;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
