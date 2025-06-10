@@ -40,4 +40,9 @@ public class ClienteService {
 
     }
 
+    @Transactional(readOnly = true)
+    public Cliente buscarPorUsuarioId(Long id) {
+        return clienteRepository.findByUsuarioId(id);
+    }
+
 }
