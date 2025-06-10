@@ -1,17 +1,14 @@
 package com.apirest.demo_park_api.service;
 
-import java.util.List;
-
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.apirest.demo_park_api.entity.Cliente;
 import com.apirest.demo_park_api.exception.EntityNotFoundException;
 import com.apirest.demo_park_api.repository.ClienteRepository;
+import com.apirest.demo_park_api.repository.projection.ClienteProjection;
 import com.apirest.demo_park_api.web.exception.CpfUniqueViolationException;
 
 import lombok.RequiredArgsConstructor;
@@ -38,8 +35,8 @@ public class ClienteService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Cliente> buscarTodos(Pageable pageable) {
-        return clienteRepository.findAll(pageable);
+    public Page<ClienteProjection> buscarTodos(Pageable pageable) {
+        return clienteRepository.findAllPageable(pageable);
 
     }
 

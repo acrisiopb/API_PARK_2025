@@ -33,7 +33,7 @@ public class Cliente implements Serializable{
     //Relação de um para um
     @OneToOne
     @JoinColumn(name = "id_usuario", nullable = false)
-    private Usuario usuaurio;
+    private Usuario usuario;
     
     //Auditoria
     @CreatedDate
