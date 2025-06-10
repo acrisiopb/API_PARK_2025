@@ -223,4 +223,41 @@ public class ClienteIT {
                 org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(403);
 
         }
+
+        @Test
+        public void buscarCliente_ComDadosDoTokenDeCliente_RetornarClienteComStatus200() {
+                ClienteResponseDto responseBody = testClient
+                                .get()
+                                .uri("/api/v1/clientes/detalhes")
+                                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "teste-Api1@gmail.com",
+                                                "123456"))
+                                .exchange()
+                                .expectStatus().isOk()
+                                .expectBody(ClienteResponseDto.class)
+                                .returnResult().getResponseBody();
+
+                org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+                org.assertj.core.api.Assertions.assertThat(responseBody.getCpf()).isEqualTo("48644714015");
+                org.assertj.core.api.Assertions.assertThat(responseBody.getNome()).isEqualTo("Raditz API");
+
+
+        }
+
+        @Test
+        public void buscarCliente_ComDadosDoTokenDeAdministrador_RetornarErrorMessageComStatus403() {
+                ErrorMessage responseBody = testClient
+                                .get()
+                                .uri("/api/v1/clientes/detalhes")
+                                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "testeApi@gmail.com",
+                                                "123456"))
+                                .exchange()
+                                .expectStatus().isForbidden()
+                                .expectBody(ErrorMessage.class)
+                                .returnResult().getResponseBody();
+
+                org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+                org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(403);
+
+
+        }
 }
