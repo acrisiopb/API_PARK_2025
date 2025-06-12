@@ -9,5 +9,6 @@ import com.apirest.demo_park_api.entity.Vaga;
 public interface VagasRepository extends JpaRepository<Vaga,Long> {
 
     Optional<Vaga> findByCodigo(String codigo);
-
+    
+   Optional<Vaga> findFirstByStatus(Vaga.statusVaga statusVaga);
 }
