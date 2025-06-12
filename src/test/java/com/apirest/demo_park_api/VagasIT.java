@@ -9,6 +9,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import com.apirest.demo_park_api.web.dto.VagaCreateDTO;
+import com.apirest.demo_park_api.web.exception.ErrorMessage;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Sql(scripts = "/sql/vagas/vagas-delete.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
@@ -108,4 +109,38 @@ public class VagasIT {
         .jsonPath("path").isEqualTo("/api/v1/vagas/a-100");
 
   }
+   
+   @Test
+        public void buscarVaga_ComUsuarioSemPermissao_RetornarErrorMessageComStatus403() {
+                ErrorMessage responseBody = testClient
+                                .get()
+                                 .uri("/api/v1/vagas/{codigo}", "A-01")
+                                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "teste-Api1@gmail.com",
+                                                "123456"))
+                                .exchange()
+                                .expectStatus().isForbidden()
+                                .expectBody(ErrorMessage.class)
+                                .returnResult().getResponseBody();
+
+                org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+                org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(403);
+        }
+
+         @Test
+        public void adicionarVaga_ComUsuarioSemPermissao_RetornarErrorMessageComStatus403() {
+                ErrorMessage responseBody = testClient
+                                .post()
+                                 .uri("/api/v1/vagas")
+                                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "teste-Api1@gmail.com",
+                                                "123456"))
+                                .bodyValue(new VagaCreateDTO("A-35","LIVRE"))
+                                                .exchange()
+                                .expectStatus().isForbidden()
+                                .expectBody(ErrorMessage.class)
+                                .returnResult().getResponseBody();
+
+                org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+                org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(403);
+        }
+
 }
