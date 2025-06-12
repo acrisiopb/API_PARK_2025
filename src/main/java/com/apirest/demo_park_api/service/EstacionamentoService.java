@@ -21,12 +21,13 @@ public class EstacionamentoService {
     private final VagaService vagaService;
     
     @Transactional
-    private ClienteVaga checkIn(ClienteVaga clienteVaga){
+    public ClienteVaga checkIn(ClienteVaga clienteVaga){
        Cliente cliente = clienteService.buscarPorCpf(clienteVaga.getCliente().getCpf());
        clienteVaga.setCliente(cliente);
        
        Vaga vaga = vagaService.buscarPorVagaLivre();
        vaga.setStatus(Vaga.statusVaga.OCUPADA);
+
        clienteVaga.setVaga(vaga);
 
        clienteVaga.setDataEntrada(LocalDateTime.now());
