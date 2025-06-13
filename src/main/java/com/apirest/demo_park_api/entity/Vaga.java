@@ -27,7 +27,7 @@ public class Vaga implements Serializable {
 
     @Column(name = "Status", nullable = false)
     @Enumerated(EnumType.STRING)
-    private statusVaga status;
+    private StatusVaga status;
  
     //Auditoria
     @CreatedDate
@@ -47,7 +47,7 @@ public class Vaga implements Serializable {
     private String ModificadoPor;
 
     //Status
-    public enum statusVaga {
+    public enum StatusVaga {
         LIVRE, OCUPADA
     }
 

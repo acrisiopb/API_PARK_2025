@@ -63,7 +63,7 @@ public class VagaController {
     @GetMapping("/{codigo}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<VagaResponseDto> getByCodigo(@PathVariable String codigo) {
-        Vaga vaga = vagaService.BuscarPorCodigo(codigo);
+        Vaga vaga = vagaService.buscarPorCodigo(codigo);
         return ResponseEntity.ok(VagaMapper.toDto(vaga));
     }
 

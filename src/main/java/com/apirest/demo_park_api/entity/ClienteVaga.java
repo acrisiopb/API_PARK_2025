@@ -1,28 +1,25 @@
 package com.apirest.demo_park_api.entity;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
-import org.hibernate.annotations.ManyToAny;
-import org.springframework.data.annotation.*;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Table;
+import jakarta.persistence.*; // Certifique-se que esta é a importação correta para JPA
 import lombok.*;
 
+// Remove this import as ManyToAny não é o que você precisa para relações diretas
+// import org.hibernate.annotations.ManyToAny;
+
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Objects;
+
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 @Entity
 @Table(name = "clientes_tem_vagas")
 @EntityListeners(AuditingEntityListener.class)
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class ClienteVaga {
 
     @Id
@@ -56,15 +53,16 @@ public class ClienteVaga {
     @Column(name = "desconto", columnDefinition = "decimal(7,2)")
     private BigDecimal desconto;
 
-    //Relação - entre Cliente e Vaga   [cliente]1 -> 1*{clienteVaga}1* <- 1[Vaga] 
-    @ManyToAny
-    @JoinColumn(name = "id_cliente", nullable = false)
+    // Relação: Muitos ClienteVaga para um Cliente (Many-to-One)
+    @ManyToOne // Use @ManyToOne para um relacionamento many-to-one
+    @JoinColumn(name = "id_cliente", nullable = false) // Coluna de chave estrangeira que referencia o Cliente
     private Cliente cliente;
 
-     @ManyToAny
-    @JoinColumn(name = "id_vaga", nullable = false)
+   
+    // Relação: Muitos ClienteVaga para uma Vaga (Many-to-One)
+    @ManyToOne // Use @ManyToOne para um relacionamento many-to-one
+    @JoinColumn(name = "id_vaga", nullable = false) // Coluna de chave estrangeira que referencia a Vaga
     private Vaga vaga;
-
 
     // Auditoria
     @CreatedDate
@@ -85,29 +83,14 @@ public class ClienteVaga {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
+        return Objects.hash(id); // Implementação mais concisa de hashCode com Objects.hash
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
         ClienteVaga other = (ClienteVaga) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
+        return Objects.equals(id, other.id); // Implementação mais concisa de equals com Objects.equals
     }
-
-
-    
 }

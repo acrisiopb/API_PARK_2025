@@ -14,8 +14,9 @@ public class ClienteVagaService {
     
     private final ClienteVagaRepository repository;
 
-    @Transactional
-    public ClienteVaga salvar(ClienteVaga clienteVaga){
-          return repository.save(clienteVaga);
+  @Transactional
+    public ClienteVaga salvar(ClienteVaga clienteVaga) {
+        return repository.save(clienteVaga);
     }
+
 }
