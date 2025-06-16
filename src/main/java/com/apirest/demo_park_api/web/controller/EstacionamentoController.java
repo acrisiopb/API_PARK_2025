@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/estacionamento")
+@RequestMapping("api/v1/estacionamentos")
 public class EstacionamentoController {
 
     private final EstacionamentoService estacionamentoService;
@@ -56,7 +56,7 @@ public class EstacionamentoController {
             })
     @PostMapping("/check-in")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<EstacionamentoResponseDto> checkin(@RequestBody @Valid EstacionamentoCreateDto dto ) {
+    public ResponseEntity<EstacionamentoResponseDto> checkin(@RequestBody @Valid EstacionamentoCreateDto dto) {
         ClienteVaga clienteVaga = ClienteVagaMapper.toClienteVaga(dto);
         estacionamentoService.checkIn(clienteVaga);
         EstacionamentoResponseDto responseDto = ClienteVagaMapper.toDto(clienteVaga);
@@ -66,5 +66,4 @@ public class EstacionamentoController {
                 .toUri();
         return ResponseEntity.created(location).body(responseDto);
     }
-
 }

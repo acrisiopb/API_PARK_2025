@@ -20,21 +20,20 @@ public class EstacionamentoService {
     private final ClienteService clienteService;
     private final VagaService vagaService;
     
+
     @Transactional
-    public ClienteVaga checkIn(ClienteVaga clienteVaga){
-       Cliente cliente = clienteService.buscarPorCpf(clienteVaga.getCliente().getCpf());
-       clienteVaga.setCliente(cliente);
-       
-       Vaga vaga = vagaService.buscarPorVagaLivre();
-       vaga.setStatus(Vaga.StatusVaga.OCUPADA);
+    public ClienteVaga checkIn(ClienteVaga clienteVaga) {
+        Cliente cliente = clienteService.buscarPorCpf(clienteVaga.getCliente().getCpf());
+        clienteVaga.setCliente(cliente);
 
-       clienteVaga.setVaga(vaga);
+        Vaga vaga = vagaService.buscarPorVagaLivre();
+        vaga.setStatus(Vaga.StatusVaga.OCUPADA);
+        clienteVaga.setVaga(vaga);
 
-       clienteVaga.setDataEntrada(LocalDateTime.now());
+        clienteVaga.setDataEntrada(LocalDateTime.now());
 
-       clienteVaga.setRecibo(EstacionamentoUtils.gerarRecibo());
+        clienteVaga.setRecibo(EstacionamentoUtils.gerarRecibo());
 
-      return clienteVagaService.salvar(clienteVaga);
-
+        return clienteVagaService.salvar(clienteVaga);
     }
 }

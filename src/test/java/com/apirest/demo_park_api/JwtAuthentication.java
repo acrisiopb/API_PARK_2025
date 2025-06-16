@@ -14,7 +14,8 @@ public class JwtAuthentication {
                 .post()
                 .uri("/api/v1/auth")
                 .bodyValue(new UsuarioLoginDto(username, password))
-                .exchange().expectStatus().isOk()
+                .exchange()
+                .expectStatus().isOk()
                 .expectBody(JwtToken.class)
                 .returnResult().getResponseBody().getToken();
 

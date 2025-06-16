@@ -1,6 +1,5 @@
 package com.apirest.demo_park_api;
 
-import io.jsonwebtoken.Jwt;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,13 +7,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.WebTestClient;
+
 import com.apirest.demo_park_api.web.dto.EstacionamentoCreateDto;
 
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-
-@Sql(scripts = "/sql/estacionamentos/estacionamentos-delete.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-@Sql(scripts = "/sql/estacionamentos/estacionamentos-insert.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-
+@Sql(scripts = "/sql/estacionamentos/estacionamentos-insert.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = "/sql/estacionamentos/estacionamentos-delete.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 public class EstacionamentoIT {
 
     @Autowired
@@ -22,7 +21,6 @@ public class EstacionamentoIT {
 
     @Test
     public void criarCheckin_ComDadosValidos_RetornarCreatedAndLocation() {
-
         EstacionamentoCreateDto createDto = EstacionamentoCreateDto.builder()
                 .placa("WER-1111").marca("FIAT").modelo("PALIO 1.0")
                 .cor("AZUL").clienteCpf("09191773016")
@@ -45,5 +43,7 @@ public class EstacionamentoIT {
                 .jsonPath("dataEntrada").exists()
                 .jsonPath("vagaCodigo").exists();
     }
+
+
 
 }
