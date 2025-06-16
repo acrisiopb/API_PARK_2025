@@ -6,17 +6,28 @@ import org.springframework.transaction.annotation.Transactional;
 import com.apirest.demo_park_api.entity.ClienteVaga;
 import com.apirest.demo_park_api.repository.ClienteVagaRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
 public class ClienteVagaService {
-    
-    private final ClienteVagaRepository repository;
+
+  private final ClienteVagaRepository repository;
 
   @Transactional
-    public ClienteVaga salvar(ClienteVaga clienteVaga) {
-        return repository.save(clienteVaga);
-    }
+  public ClienteVaga salvar(ClienteVaga clienteVaga) {
+    return repository.save(clienteVaga);
+  }
+
+  @Transactional(readOnly = true)
+  public ClienteVaga buscarPorReibo(String recibo) {
+    return repository.findByRecioboAndDataSaidaIsNull(recibo).orElseThrow(
+      () -> new EntityNotFoundException(
+        
+        String.format("Recibo %s não encontrado no sistema ou check-out já realizado.", recibo)
+      )
+    );
+  }
 
 }
