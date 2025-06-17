@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -67,10 +68,8 @@ public class EstacionamentoController {
                         "pelo nº do recibo. Requisição exige uso de um bearer token.", security = @SecurityRequirement(name = "security"), parameters = {
                                         @Parameter(in = PATH, name = "recibo", description = "Número do rebibo gerado pelo check-in")
                         }, responses = {
-                                        @ApiResponse(responseCode = "200", description = "Recurso localizado com sucesso", 
-                                        content = @Content(mediaType = " application/json;charset=UTF-8", schema = @Schema(implementation = EstacionamentoResponseDto.class))),
-                                        @ApiResponse(responseCode = "404", description = "Número do recibo não encontrado.", 
-                                        content = @Content(mediaType = " application/json;charset=UTF-8", schema = @Schema(implementation = ErrorMessage.class)))
+                                        @ApiResponse(responseCode = "200", description = "Recurso localizado com sucesso", content = @Content(mediaType = " application/json;charset=UTF-8", schema = @Schema(implementation = EstacionamentoResponseDto.class))),
+                                        @ApiResponse(responseCode = "404", description = "Número do recibo não encontrado.", content = @Content(mediaType = " application/json;charset=UTF-8", schema = @Schema(implementation = ErrorMessage.class)))
                         })
         @GetMapping("/check-in/{recibo}")
         @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE')")
@@ -79,4 +78,13 @@ public class EstacionamentoController {
                 EstacionamentoResponseDto dto = ClienteVagaMapper.toDto(clienteVaga);
                 return ResponseEntity.ok(dto);
         }
+
+        @PutMapping("/check-out/{recibo}")
+        @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE')")
+        public ResponseEntity<EstacionamentoResponseDto> checkout(@PathVariable String recibo) {
+                ClienteVaga clienteVaga =  estacionamentoService.checkOut(null)
+                EstacionamentoResponseDto dto = ClienteVagaMapper.toDto(clienteVaga);
+                return ResponseEntity.ok(dto);
+        }
+
 }
