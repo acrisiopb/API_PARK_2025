@@ -10,5 +10,5 @@ public interface ClienteVagaRepository extends JpaRepository<ClienteVaga, Long> 
 
     Optional<ClienteVaga> findByReciboAndDataSaidaIsNull(String recibo);
     
-   long countByClienteCpfAndDataSaidaIsNotNull(String cpf );
+    long countByClienteCpfAndDataSaidaIsNotNull(String cpf);
 }

@@ -28,10 +28,10 @@ public class ClienteVagaService {
             String.format("Recibo %s não encontrado no sistema ou check-out já realizado.", recibo)));
   }
 
-  @Transactional(readOnly = true)
-  public long getTotalDeVezesEstacionamentoCompleto(String cpf) {
-    return repository.countByClienteCpfAndDataSaidaIsNotNull(cpf);
-      
-  }
+    @Transactional(readOnly = true)
+    public long getTotalDeVezesEstacionamentoCompleto(String cpf) {
+        return repository.countByClienteCpfAndDataSaidaIsNotNull(cpf);
+    }
+
 
 }
