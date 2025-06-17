@@ -4,9 +4,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.apirest.demo_park_api.entity.ClienteVaga;
+import com.apirest.demo_park_api.exception.EntityNotFoundException;
 import com.apirest.demo_park_api.repository.ClienteVagaRepository;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
