@@ -22,9 +22,11 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+@Tag(name = "Vaga", description = "Contém todas as operações relativas aos recursos para cadastro de Vagas e busca por uma vaga.")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/vagas")

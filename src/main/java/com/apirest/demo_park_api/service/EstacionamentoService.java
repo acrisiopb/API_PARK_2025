@@ -1,6 +1,5 @@
 package com.apirest.demo_park_api.service;
 
-import static com.apirest.demo_park_api.entity.Vaga.StatusVaga.LIVRE;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
