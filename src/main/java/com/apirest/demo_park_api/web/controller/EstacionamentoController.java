@@ -134,4 +134,13 @@ public class EstacionamentoController {
                 return ResponseEntity.ok(dto);
         }
 
+        @GetMapping
+        @PreAuthorize("hasRole('CLIENTE')")
+        public ResponseEntity<PageableDTO> getAllEstacionamentosdoCliente(@PathVariable String cpf,
+                        @Parameter(hidden = true) @PageableDefault(size = 5, sort = "dataEntrada", direction = Sort.Direction.ASC) Pageable pageable) {
+                Page<ClienteVagaProjection> projection = clienteVagaService.buscarTodosPorClienteCpf(cpf, pageable);
+                PageableDTO dto = PageableMapper.toDto(projection);
+                return ResponseEntity.ok(dto);
+        }
+
 }
