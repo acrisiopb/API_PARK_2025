@@ -8,6 +8,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.data.domain.Page;
 import com.apirest.demo_park_api.entity.ClienteVaga;
+import com.apirest.demo_park_api.jwt.JwtUserDetails;
 import com.apirest.demo_park_api.repository.projection.ClienteVagaProjection;
 import com.apirest.demo_park_api.service.ClienteVagaService;
 import com.apirest.demo_park_api.service.EstacionamentoService;
@@ -136,9 +138,9 @@ public class EstacionamentoController {
 
         @GetMapping
         @PreAuthorize("hasRole('CLIENTE')")
-        public ResponseEntity<PageableDTO> getAllEstacionamentosdoCliente(@PathVariable String cpf,
+        public ResponseEntity<PageableDTO> getAllEstacionamentosdoCliente(@AuthenticationPrincipal JwtUserDetails user ,
                         @Parameter(hidden = true) @PageableDefault(size = 5, sort = "dataEntrada", direction = Sort.Direction.ASC) Pageable pageable) {
-                Page<ClienteVagaProjection> projection = clienteVagaService.buscarTodosPorClienteCpf(cpf, pageable);
+                Page<ClienteVagaProjection> projection = clienteVagaService.buscarTodosPorUsuarioId(user.getId(), pageable);
                 PageableDTO dto = PageableMapper.toDto(projection);
                 return ResponseEntity.ok(dto);
         }
