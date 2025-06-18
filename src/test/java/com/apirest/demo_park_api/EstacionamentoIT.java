@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import com.apirest.demo_park_api.web.dto.EstacionamentoCreateDto;
+import com.apirest.demo_park_api.web.dto.PageableDTO;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Sql(scripts = "/sql/estacionamentos/estacionamentos-insert.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -103,6 +104,7 @@ public class EstacionamentoIT {
                                 .jsonPath("method").isEqualTo("POST");
         }
 
+        /* Teste com sql personalizado / caminho */
         @Sql(scripts = "/sql/estacionamentos/estacionamentos-insert-vagas-ocupadas.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
         @Sql(scripts = "/sql/estacionamentos/estacionamentos-delete-vagas-ocupadas.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
         @Test
@@ -234,6 +236,62 @@ public class EstacionamentoIT {
                                 .jsonPath("status").isEqualTo("403")
                                 .jsonPath("path").isEqualTo("/api/v1/estacionamentos/check-out/20230313-101300")
                                 .jsonPath("method").isEqualTo("PUT");
+
+        }
+
+        @Test
+        public void buscarEstacionamentos_PorClienteCpf_RetornarSucesso() {
+
+                PageableDTO responseBody = testClient.get()
+                                .uri("/api/v1/estacionamentos/cpf/{cpf}?size=1&page=0", "98401203015") // Recibo
+                                                                                                       // Invalido
+                                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "testeApi@gmail.com",
+                                                "123456"))
+                                .exchange()
+                                .expectStatus().isOk()
+                                .expectBody(PageableDTO.class)
+                                .returnResult()
+                                .getResponseBody();
+
+                org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+                org.assertj.core.api.Assertions.assertThat(responseBody.getContent().size()).isEqualTo(1);
+                org.assertj.core.api.Assertions.assertThat(responseBody.getTotalPages()).isEqualTo(2);
+                org.assertj.core.api.Assertions.assertThat(responseBody.getNumber()).isEqualTo(0);
+                org.assertj.core.api.Assertions.assertThat(responseBody.getSize()).isEqualTo(1);
+
+                responseBody = testClient.get()
+                                .uri("/api/v1/estacionamentos/cpf/{cpf}?size=1&page=0", "98401203015") // Recibo
+                                                                                                       // Invalido
+                                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "testeApi@gmail.com",
+                                                "123456"))
+                                .exchange()
+                                .expectStatus().isOk()
+                                .expectBody(PageableDTO.class)
+                                .returnResult()
+                                .getResponseBody();
+
+                org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+                org.assertj.core.api.Assertions.assertThat(responseBody.getContent().size()).isEqualTo(1);
+                org.assertj.core.api.Assertions.assertThat(responseBody.getTotalPages()).isEqualTo(2);
+                org.assertj.core.api.Assertions.assertThat(responseBody.getNumber()).isEqualTo(0);
+                org.assertj.core.api.Assertions.assertThat(responseBody.getSize()).isEqualTo(1);
+
+        }
+
+
+        @Test
+        public void buscarEstacionamentos_PorClienteCpfComPerfilCliente_RetornarErrorStatus403() {
+
+                testClient.get()
+                                .uri("/api/v1/estacionamentos/cpf/{cpf}", "98401203015") // Recibo Invalido
+                                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "teste-Api1@gmail.com",
+                                                "123456"))
+                                .exchange()
+                                .expectStatus().isForbidden()
+                                .expectBody()
+                                .jsonPath("status").isEqualTo("403")
+                                .jsonPath("path").isEqualTo("/api/v1/estacionamentos/cpf/98401203015")
+                                .jsonPath("method").isEqualTo("GET");
 
         }
 

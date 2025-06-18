@@ -30,6 +30,7 @@ import com.apirest.demo_park_api.web.exception.ErrorMessage;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -38,6 +39,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import static io.swagger.v3.oas.annotations.enums.ParameterIn.PATH;
+import static io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY;
 
 @Tag(name = "Estacionamento", description = "Contém todas as operações relativas aos recursos para cadastro de veiculo. Verificação Checkin e CheckOut.")
 @RequiredArgsConstructor
@@ -106,6 +108,23 @@ public class EstacionamentoController {
                 return ResponseEntity.ok(dto);
         }
 
+        @Operation(summary = "Localizar os registros do estacionamentos do cliente por CPF.", description = "Localizar os registros do estacionamentos do cliente por CPF. Requisição exige uso de um bearer token. ", security = @SecurityRequirement(name = "security"), parameters = {
+
+                        @Parameter(in = PATH, name = "cpf", description = "Número do CPF referente ao cliente a ser consultado.", required = true),
+
+                        @Parameter(in = QUERY, name = "page", description = "Representa a página retornada.", 
+                        content = @Content(schema = @Schema(type = "integer", defaultValue = "0"))),
+
+                        @Parameter(in = QUERY, name = "size", description = "Representa o total de elemento por página.", 
+                        content = @Content(schema = @Schema(type = "integer", defaultValue = "5"))),
+
+                        @Parameter(in = QUERY, name = "sort", description = "Campo padrao de ordenação 'dataEntrada,asc'.", 
+                        array = @ArraySchema(schema = @Schema(type = "String", defaultValue = "dataEntrada,asc")), hidden = true)
+
+        }, responses = {
+                        @ApiResponse(responseCode = "200", description = "Recurso localizado com sucesso", content = @Content(mediaType = " application/json;charset=UTF-8", schema = @Schema(implementation = EstacionamentoResponseDto.class))),
+                        @ApiResponse(responseCode = "403", description = "Recurso não permito ao perfil de CLIENTE", content = @Content(mediaType = " application/json;charset=UTF-8", schema = @Schema(implementation = ErrorMessage.class)))
+        })
         @GetMapping("/cpf/{cpf}")
         @PreAuthorize("hasRole('ADMIN')")
         public ResponseEntity<PageableDTO> getAllEstacionamentosPorCpf(@PathVariable String cpf,
