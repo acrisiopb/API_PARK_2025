@@ -1,9 +1,9 @@
-## Projeto - API | Estacionamento - Controle de entra e Saída de Veiculo + Cobrança + Taxa
+## Projeto - API | Estacionamento - Controle de Entrada e Saída de Veículos + Cobrança + Taxa
 
 
 <h6>LINK -> <a href="https://github.com/acrisiopb/API_PARK_2025/tree/main/SQL"><img align="center" src="https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white" alt="Badge MySQL"></a></h6>
 
-<p>Projeto API - estacionamento Controle de entrada de veiculo e sainda, registrando total de horas, com  cobrança  + taxa</p>
+<p>Projeto API - estacionamento Controle de entrada de veículos e sainda, registrando total de horas, com  cobrança  + taxa</p>
 
 
 <div style="display: inline_block"><br>
