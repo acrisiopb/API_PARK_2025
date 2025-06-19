@@ -2,7 +2,7 @@
 
 #Diagrama
 <div style="display: inline_block"><br>
-  <img align="center" alt="DIAGRAMA" src="https://drive.google.com/file/d/1UrFuevciZAtFbTLPIP6DPipR866zy37g/view?usp=sharing">
+  <img align="center" alt="DIAGRAMA" src="https://github.com/acrisiopb/API_PARK_2025/blob/main/Diagrama%20-%20BD.png?raw=true">
 
 </div>
 
