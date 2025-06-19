@@ -3,7 +3,7 @@
 
 <h6>LINK -> <a href="https://github.com/acrisiopb/API_PARK_2025/tree/main/SQL"><img align="center" src="https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white" alt="Badge MySQL"></a></h6>
 
-<p>Projeto API - Estacionamento Controle de entrada de veículos e sainda, registrando total de horas, com  cobrança  + taxa</p>
+<p>Projeto API - Estacionamento Controle de entrada de veículos e saída, registrando total de horas, com  cobrança  + taxa</p>
 
 
 <div style="display: inline_block"><br>
