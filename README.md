@@ -15,7 +15,6 @@
 <div style="display: inline_block"><br>
   <h4>Tecnologia utilizada na construção dessa API</h4>
   <img align="center" src="https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white" alt="Badge MySQL">
-  <img align="center" alt="Js" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-plain.svg">
   <img align="center" src="https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white" alt="Badge Spring">
 </div>
 
