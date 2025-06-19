@@ -6,7 +6,7 @@ Diagrama
   <img align="center" alt="DIAGRAMA" src="https://github.com/acrisiopb/API_PARK_2025/blob/main/Diagrama%20-%20BD.png?raw=true">
 </div>
 
-SQL
+<a href="https://github.com/acrisiopb/API_PARK_2025/tree/main/SQL">SQL</a>
 
 
 
