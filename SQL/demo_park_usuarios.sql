@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: demo_park
 -- ------------------------------------------------------
--- Server version	8.0.36
+-- Server version	8.0.31
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -33,7 +33,7 @@ CREATE TABLE `usuarios` (
   `username` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UKm2dvbwfge291euvmk6vkkocao` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (21,'acrisiopb@gmail.com','anonymousUser','2025-06-03 23:47:26.658559','2025-06-03 23:50:23.165568','$2a$10$zJ1Y9la.h2o5j7VytoKoRedLHrtGKUdPmrViEp024ek/MhVBkIKTW','ROLE_ADMIN','acrisiopb@gmail.com');
+INSERT INTO `usuarios` VALUES (26,'raditz@gmail.com','anonymousUser','2025-06-05 12:53:58.544275','2025-06-05 13:00:01.193090','$2a$10$bxyUsFJtaiRAtKdbbrUU4e88F0YUlT2wB.DNKhwakAzq3U045QLUS','ROLE_CLIENTE','raditz@gmail.com'),(27,'acrisiopb@gmail.com','anonymousUser','2025-06-05 13:58:02.510777','2025-06-05 15:39:17.527099','$2a$10$m051TBcQKnKr9ZDjUilwDOzyAFskb83wIwmJUYoXj2xPggUtJpWmW','ROLE_ADMIN','acrisiopb@gmail.com'),(29,'anonymousUser','anonymousUser','2025-06-09 16:15:12.369459','2025-06-09 16:15:12.369459','$2a$10$DkUPfsS5PUMXrZYcPgzOS.5QNbijEH7sCL2HFjqLhMzuSaYna8/nu','ROLE_CLIENTE','luffy@gmail.com'),(30,'anonymousUser','anonymousUser','2025-06-09 16:15:18.084303','2025-06-09 16:15:18.084303','$2a$10$c0aVmrasI4AVte2.MQlyhucKP72vAn26Ye1WZHcyPbBr/JYJFd3Vm','ROLE_CLIENTE','teste@gmail.com'),(31,'anonymousUser','anonymousUser','2025-06-09 16:15:24.303336','2025-06-09 16:15:24.303336','$2a$10$cxJg/1fjaZXZ4F2I1gh/Xezo4YD9bmzTblpKcNzgWCAG3CREY5nZu','ROLE_CLIENTE','teste2@gmail.com'),(32,'anonymousUser','anonymousUser','2025-06-09 16:15:27.551706','2025-06-09 16:15:27.551706','$2a$10$cdO1Qyu3Kvo4B8Xa3paqTepCxypaGU1Wun4Na5I76jn834Hw4CiQi','ROLE_CLIENTE','teste3@gmail.com'),(33,'anonymousUser','anonymousUser','2025-06-09 16:15:30.644727','2025-06-09 16:15:30.644727','$2a$10$IAbImSC/lCvi7yq.U8AkwOaHMZsACnnFUxxIC5pALNKAk//.JqTdS','ROLE_CLIENTE','teste4@gmail.com'),(34,'anonymousUser','anonymousUser','2025-06-09 16:15:33.470218','2025-06-09 16:15:33.470218','$2a$10$8xn8JI.rbR4NgPgeCwHw0u9BSui9swIe3s.JFu2Ni9HCRwg0E2bOu','ROLE_CLIENTE','teste5@gmail.com'),(35,'anonymousUser','anonymousUser','2025-06-09 16:15:37.457704','2025-06-09 16:15:37.457704','$2a$10$BcWYHx7MIbh1O1rE2HQo7OImEmH5oz/yclYCxDP.bHrLU6r0XT11m','ROLE_CLIENTE','teste6@gmail.com'),(36,'anonymousUser','anonymousUser','2025-06-09 16:15:40.719589','2025-06-09 16:15:40.719589','$2a$10$TxT8ytf8FVrN8cADsQKBcO7CX9tDqkckcZnwOCydICWjJI276Rrmq','ROLE_CLIENTE','teste7@gmail.com'),(42,'teste5@gmail.com','teste5@gmail.com','2025-06-09 16:23:15.523857','2025-06-09 16:23:15.523857','$2a$10$OJP7JWH1SbnbzoFobin6JOFmeLI76X5nh1j14oYjs8TTYsLgw/mnO','ROLE_CLIENTE','teste8@gmail.com');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-04 20:58:49
+-- Dump completed on 2025-06-19  8:57:00
