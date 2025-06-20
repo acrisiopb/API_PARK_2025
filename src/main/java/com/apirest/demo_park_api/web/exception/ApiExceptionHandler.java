@@ -1,6 +1,5 @@
 package com.apirest.demo_park_api.web.exception;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -69,7 +68,8 @@ public class ApiExceptionHandler {
                                                 ex.getMessage()));
         }
 
-        @ExceptionHandler({UsernameUniqueViolationException.class, CpfUniqueViolationException.class, CodigoUniqueViolationException.class})
+        @ExceptionHandler({ UsernameUniqueViolationException.class, CpfUniqueViolationException.class,
+                        CodigoUniqueViolationException.class })
         public ResponseEntity<ErrorMessage> usernameUniqueViolationException(RuntimeException ex,
                         HttpServletRequest request) {
 
@@ -91,7 +91,8 @@ public class ApiExceptionHandler {
         }
 
         @ExceptionHandler(AccessDeniedException.class)
-        public ResponseEntity<ErrorMessage> accessDeniedException(AccessDeniedException ex, HttpServletRequest request) {
+        public ResponseEntity<ErrorMessage> accessDeniedException(AccessDeniedException ex,
+                        HttpServletRequest request) {
                 log.error("Api Error - ", ex);
                 return ResponseEntity
                                 .status(HttpStatus.FORBIDDEN)
@@ -99,5 +100,20 @@ public class ApiExceptionHandler {
                                 .body(new ErrorMessage(request, HttpStatus.FORBIDDEN, ex.getMessage()));
         }
 
+        @ExceptionHandler(Exception.class)
+        public ResponseEntity<ErrorMessage> internalServerException(Exception ex,
+                        HttpServletRequest request) {
+                ErrorMessage error = new ErrorMessage(
+                                request, HttpStatus.INTERNAL_SERVER_ERROR,
+                                HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+
+                log.error("Internal server Error {} {}", error, ex.getMessage()); // Loga o erro para facilitar o
+                                                                                  // rastreamento
+
+                return ResponseEntity
+                                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .body(error);
+        }
 
 }

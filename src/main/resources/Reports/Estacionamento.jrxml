@@ -1,0 +1,353 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Estacionamento" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1640ae5f-5bef-4332-ae4b-13abe0af8306">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Curso REST DB 2025"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="176"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="815"/>
+	<parameter name="CPF" class="java.lang.String"/>
+	<parameter name="IMAGEM_DIRETORIO" forPrompting="false" class="java.lang.String">
+		<description><![CDATA[""]]></description>
+	</parameter>
+	<query language="sql"><![CDATA[SELECT 
+    clientes.cpf, 
+    clientes.nome, 
+    clientes_tem_vagas.cor,
+    clientes_tem_vagas.desconto, 
+    clientes_tem_vagas.marca,
+    clientes_tem_vagas.modelo,
+    clientes_tem_vagas.placa,
+    clientes_tem_vagas.numero_recibo, 
+    clientes_tem_vagas.valor, 
+    vagas.codigo,
+    clientes_tem_vagas.data_entrada,
+    clientes_tem_vagas.data_saida,
+    HOUR(TIMEDIFF(clientes_tem_vagas.data_saida, clientes_tem_vagas.data_entrada)) AS hours,
+    MINUTE(TIMEDIFF(clientes_tem_vagas.data_saida, clientes_tem_vagas.data_entrada)) AS minutes
+FROM 
+    clientes_tem_vagas 
+INNER JOIN 
+    clientes ON clientes_tem_vagas.id_cliente = clientes.id 
+INNER JOIN 
+    vagas ON clientes_tem_vagas.id_vaga = vagas.id 
+WHERE 
+    clientes.cpf =  $P{CPF} 
+ORDER BY 
+    clientes_tem_vagas.placa;
+]]></query>
+	<field name="cpf" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cpf"/>
+		<property name="com.jaspersoft.studio.field.label" value="cpf"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="cor" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cor"/>
+		<property name="com.jaspersoft.studio.field.label" value="cor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes_tem_vagas"/>
+	</field>
+	<field name="desconto" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="desconto"/>
+		<property name="com.jaspersoft.studio.field.label" value="desconto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes_tem_vagas"/>
+	</field>
+	<field name="marca" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="marca"/>
+		<property name="com.jaspersoft.studio.field.label" value="marca"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes_tem_vagas"/>
+	</field>
+	<field name="modelo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="modelo"/>
+		<property name="com.jaspersoft.studio.field.label" value="modelo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes_tem_vagas"/>
+	</field>
+	<field name="placa" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="placa"/>
+		<property name="com.jaspersoft.studio.field.label" value="placa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes_tem_vagas"/>
+	</field>
+	<field name="numero_recibo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numero_recibo"/>
+		<property name="com.jaspersoft.studio.field.label" value="numero_recibo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes_tem_vagas"/>
+	</field>
+	<field name="valor" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="valor"/>
+		<property name="com.jaspersoft.studio.field.label" value="valor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes_tem_vagas"/>
+	</field>
+	<field name="codigo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codigo"/>
+		<property name="com.jaspersoft.studio.field.label" value="codigo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vagas"/>
+	</field>
+	<field name="data_entrada" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="data_entrada"/>
+		<property name="com.jaspersoft.studio.field.label" value="data_entrada"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes_tem_vagas"/>
+	</field>
+	<field name="data_saida" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="data_saida"/>
+		<property name="com.jaspersoft.studio.field.label" value="data_saida"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes_tem_vagas"/>
+	</field>
+	<field name="hours" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="hours"/>
+		<property name="com.jaspersoft.studio.field.label" value="hours"/>
+	</field>
+	<field name="minutes" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="minutes"/>
+		<property name="com.jaspersoft.studio.field.label" value="minutes"/>
+	</field>
+	<group name="Group Veiculo" startNewPage="true">
+		<expression><![CDATA[$F{placa}]]></expression>
+		<groupHeader>
+			<band height="99">
+				<element kind="rectangle" uuid="70367793-8a0d-476d-a198-81748a7fdfa3" x="0" y="0" width="555" height="30" backcolor="#D6D6D6">
+					<pen lineWidth="0.0"/>
+				</element>
+				<element kind="staticText" uuid="c928900c-2650-4d87-b147-eaa172447a57" x="0" y="0" width="100" height="30" fontSize="14.0" bold="true" vTextAlign="Middle">
+					<text><![CDATA[Veiculo]]></text>
+					<box leftPadding="5"/>
+				</element>
+				<element kind="textField" uuid="e21f8db4-b26d-4a4e-a74d-6b48436e7886" x="1" y="62" width="138" height="30" fontSize="12.0" vTextAlign="Middle">
+					<expression><![CDATA[$F{marca}]]></expression>
+					<box leftPadding="5">
+						<pen lineColor="#EDEDED"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="e9281c28-357b-4b55-acf7-6dd5028ddaac" x="139" y="62" width="138" height="30" fontSize="12.0" vTextAlign="Middle">
+					<expression><![CDATA[$F{modelo}]]></expression>
+					<box leftPadding="5">
+						<pen lineColor="#EDEDED"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="d3031e80-ce24-4b6f-84ef-1bc6a059d7b2" x="418" y="62" width="138" height="30" fontSize="12.0" vTextAlign="Middle">
+					<expression><![CDATA[$F{placa}]]></expression>
+					<box leftPadding="5">
+						<pen lineColor="#EDEDED"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="54483708-2673-4b8d-8a8a-ba9274ee014f" x="0" y="30" width="139" height="30" fontSize="14.0" bold="true" vTextAlign="Middle">
+					<expression><![CDATA["Marca"]]></expression>
+					<box leftPadding="5">
+						<pen lineColor="#E0DCDC"/>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#E0DCDC"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#E0DCDC"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="3b21dc14-afb4-4ac6-8429-06d1d815e0b0" x="139" y="31" width="138" height="30" fontSize="14.0" bold="true" vTextAlign="Middle">
+					<expression><![CDATA["Modelo"]]></expression>
+					<box leftPadding="5">
+						<pen lineColor="#E0DCDC"/>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#E0DCDC"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#E0DCDC"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="b59283ac-bb7f-49ea-9edb-19c9eb3909a6" x="277" y="31" width="141" height="30" fontSize="14.0" bold="true" vTextAlign="Middle">
+					<expression><![CDATA["Cor"]]></expression>
+					<box leftPadding="5">
+						<pen lineColor="#E0DCDC"/>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#E0DCDC"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#E0DCDC"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="35244ee6-f2e7-418a-ae2a-8d0a7edc4bd7" x="418" y="30" width="138" height="30" fontSize="14.0" bold="true" vTextAlign="Middle">
+					<expression><![CDATA["Placa"]]></expression>
+					<box leftPadding="5">
+						<pen lineColor="#E0DCDC"/>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#E0DCDC"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#E0DCDC"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="b126723a-22af-4c73-9510-e641661d8a19" x="277" y="60" width="141" height="39" fontSize="12.0" hTextAlign="Left" vTextAlign="Middle">
+					<expression><![CDATA[$F{cor}]]></expression>
+					<box leftPadding="5">
+						<pen lineColor="#EDEDED"/>
+					</box>
+				</element>
+			</band>
+		</groupHeader>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="88" splitType="Stretch">
+		<element kind="rectangle" uuid="62334f10-e124-49d4-9fac-91444d8607ae" x="0" y="0" width="555" height="78" forecolor="#CFC9B1" backcolor="#CFC9B1"/>
+		<element kind="image" uuid="2ca9b0a8-0a1a-4c2f-93cb-b8cb3ae98576" x="0" y="0" width="555" height="78">
+			<expression><![CDATA[$P{IMAGEM_DIRETORIO} + "/imagens/parking.png"]]></expression>
+		</element>
+	</title>
+	<pageHeader height="43" splitType="Stretch">
+		<element kind="textField" uuid="b7d3b68f-1be9-49e1-b1a0-4ddd461f210b" x="0" y="0" width="555" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[$F{nome} + "| " + 
+$F{cpf}.substring(0, 3) + "." + 
+$F{cpf}.substring(3, 6) + "." + 
+$F{cpf}.substring(6, 9) + "-" + 
+$F{cpf}.substring(9, 11)
+]]></expression>
+		</element>
+	</pageHeader>
+	<detail>
+		<band height="153" splitType="Stretch">
+			<element kind="rectangle" uuid="c77c82e2-b80e-4af6-b75a-01ed5f5f8621" x="0" y="3" width="555" height="30" forecolor="#030202" backcolor="#030202">
+				<pen lineWidth="0.0"/>
+			</element>
+			<element kind="textField" uuid="c7bb75b2-d4d7-44ab-bc37-15e54d3a27b2" x="360" y="3" width="196" height="30" forecolor="#FFFFFF" markup="html" fontSize="14.0" bold="false" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA["<b>Recibo: </b>" + $F{numero_recibo}
+]]></expression>
+				<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				<box rightPadding="5"/>
+			</element>
+			<element kind="rectangle" uuid="6d38c5f5-54cc-4b92-b2f2-d3c21a354493" x="0" y="31" width="555" height="30" backcolor="#D6D6D6">
+				<pen lineWidth="0.0"/>
+			</element>
+			<element kind="textField" uuid="661f55bc-5582-488c-b772-d960532ba6ee" x="80" y="31" width="120" height="30" fontSize="12.0" bold="true" vTextAlign="Middle">
+				<expression><![CDATA[$F{codigo}]]></expression>
+				<box leftPadding="5"/>
+			</element>
+			<element kind="staticText" uuid="3e4b1f4c-c3b1-4809-bad7-92e18b564626" x="0" y="31" width="80" height="30" fontSize="12.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[Vaga]]></text>
+				<box leftPadding="5"/>
+			</element>
+			<element kind="staticText" uuid="354a8e58-bacd-42ad-80af-51893bfd9f9c" x="0" y="61" width="150" height="30" fontSize="14.0" bold="true">
+				<text><![CDATA[Entrada]]></text>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<box leftPadding="5">
+					<pen lineColor="#EDEDED"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="cbc4ce8d-0e67-4b63-bc80-3595a384039d" x="0" y="93" width="150" height="30" fontSize="12.0" hTextAlign="Left">
+				<expression><![CDATA[$F{data_entrada}]]></expression>
+				<box leftPadding="5">
+					<pen lineColor="#EDEDED"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="a372fee0-0ed0-4722-be5b-008854526f45" x="150" y="93" width="127" height="30" fontSize="12.0" hTextAlign="Left">
+				<expression><![CDATA[$F{data_saida}]]></expression>
+				<box leftPadding="5">
+					<pen lineColor="#EDEDED"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="a4d8a109-f95c-401a-bada-2b1a6991ffde" x="150" y="60" width="127" height="30" fontSize="14.0" bold="true">
+				<text><![CDATA[Saida]]></text>
+				<box leftPadding="5">
+					<pen lineColor="#EDEDED"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="bc79a343-d85d-49fa-8ce1-734922d3436f" x="279" y="60" width="120" height="30" fontSize="14.0" bold="true">
+				<text><![CDATA[Tempo Total]]></text>
+				<box leftPadding="5">
+					<pen lineColor="#EDEDED"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="05179048-3af0-44da-b282-ce949985f263" x="400" y="94" width="80" height="30" fontSize="12.0" pattern="¤ #,##0.00;¤ -#,##0.00" hTextAlign="Left">
+				<expression><![CDATA[$F{valor}]]></expression>
+				<box leftPadding="5">
+					<pen lineColor="#EDEDED"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="4e0392a5-c45b-4967-9858-ce9c064cd179" x="400" y="61" width="80" height="30" fontSize="14.0" bold="true">
+				<text><![CDATA[Custo]]></text>
+				<box leftPadding="5">
+					<pen lineColor="#EDEDED"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="441eeee6-ea2f-43d8-85cb-ba5f544f2b97" x="480" y="94" width="75" height="30" fontSize="12.0" pattern="¤ #,##0.00;¤ -#,##0.00" hTextAlign="Left">
+				<expression><![CDATA[$F{desconto}]]></expression>
+				<box leftPadding="5">
+					<pen lineColor="#EDEDED"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="c9337d86-2895-4c0b-9be4-eb844b122aad" x="480" y="61" width="76" height="33" fontSize="14.0" bold="true">
+				<text><![CDATA[Desconto]]></text>
+				<box leftPadding="5">
+					<pen lineColor="#EDEDED"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="ae0590e4-dfa2-47f3-800a-bc342eb3fc6c" x="380" y="123" width="100" height="30" fontSize="12.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+				<text><![CDATA[Total: ]]></text>
+				<box leftPadding="5">
+					<pen lineColor="#EDEDED"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="8064a2fe-853d-48e0-8082-8925727a3c67" x="480" y="123" width="76" height="30" fontSize="12.0" pattern="¤ #,##0.00;¤ -#,##0.00" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$F{valor}.subtract( $F{desconto})]]></expression>
+				<box leftPadding="5">
+					<pen lineColor="#EDEDED"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="cb70517c-cdd3-483a-bea0-1b0ce7b4e9ba" x="280" y="90" width="119" height="34" fontSize="12.0">
+				<expression><![CDATA[$F{hours} == 0 ?  $F{minutes} + "minuto(s) "  :  $F{hours} + " hora(s)  e " + $F{minutes} +  " minuto(s)"]]></expression>
+				<box leftPadding="5">
+					<pen lineColor="#EDEDED"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#EDEDED"/>
+				</box>
+			</element>
+		</band>
+	</detail>
+	<pageFooter height="30" splitType="Stretch">
+		<element kind="textField" uuid="5faf5e87-a546-45a6-b5ab-eb29a08938ec" x="355" y="0" width="100" height="30" hTextAlign="Right">
+			<expression><![CDATA["Página " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="textField" uuid="3788ee75-6b8c-4a2b-b784-2485e547fb20" x="455" y="0" width="100" height="30" evaluationTime="Report" hTextAlign="Left">
+			<expression><![CDATA[" de " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+</jasperReport>
