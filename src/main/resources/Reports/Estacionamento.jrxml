@@ -184,7 +184,7 @@ ORDER BY
 	<title height="88" splitType="Stretch">
 		<element kind="rectangle" uuid="62334f10-e124-49d4-9fac-91444d8607ae" x="0" y="0" width="555" height="78" forecolor="#CFC9B1" backcolor="#CFC9B1"/>
 		<element kind="image" uuid="2ca9b0a8-0a1a-4c2f-93cb-b8cb3ae98576" x="0" y="0" width="555" height="78">
-			<expression><![CDATA[$P{IMAGEM_DIRETORIO} + "/imagens/parking.png"]]></expression>
+			<expression><![CDATA[$P{IMAGEM_DIRETORIO} + "imagens/parking.png"]]></expression>
 		</element>
 	</title>
 	<pageHeader height="43" splitType="Stretch">

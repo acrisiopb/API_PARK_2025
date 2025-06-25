@@ -39,7 +39,7 @@ public class JasperService {
     public byte[] geraPDF() {
         byte[] bytes = null;
         try {
-            Resource resource = resourceLoader.getResource(JASPER_DIRETORIO.concat("estacioanemntos.jasper"));
+            Resource resource = resourceLoader.getResource(JASPER_DIRETORIO.concat("Estacionamento.jasper"));
             InputStream stream = resource.getInputStream();
             JasperPrint print = JasperFillManager.fillReport(stream, params, dataSource.getConnection());
             bytes = JasperExportManager.exportReportToPdf(print);
