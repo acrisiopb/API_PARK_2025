@@ -1,5 +1,7 @@
 package com.apirest.demo_park_api.web.exception;
 
+
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +17,17 @@ import com.apirest.demo_park_api.exception.PasswordInvalidException;
 import com.apirest.demo_park_api.exception.UsernameUniqueViolationException;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 // Anotação do Lombok que gera automaticamente um logger (log) para a classe
 @Slf4j
+@RequiredArgsConstructor
 @RestControllerAdvice // Indica que esta classe trata exceções de forma global para os controladores
                       // REST
 public class ApiExceptionHandler {
+        
+        private final MessageSource messageSource;
 
         /**
          * Trata exceções do tipo MethodArgumentNotValidException,
@@ -49,8 +55,9 @@ public class ApiExceptionHandler {
                                 .body(new ErrorMessage( // Cria e retorna um objeto de erro personalizado
                                                 request,
                                                 HttpStatus.UNPROCESSABLE_ENTITY,
-                                                "Campo(s) inválido(s)", // Mensagem genérica de erro
+                                                messageSource.getMessage("message.invalid.field", null,request.getLocale()), // Mensagem genérica de erro
                                                 result // Passa o BindingResult para coletar os erros de validação
+                                                , messageSource
                                 ));
         }
 
