@@ -14,7 +14,19 @@
 
 <div style="display: inline_block"><br>
   <h4>Diagrama</h4>
-  <img align="center" alt="DIAGRAMA" src="https://github.com/acrisiopb/API_PARK_2025/blob/main/Diagrama%20-%20BD.png?raw=true">
+  <img align="center" alt="DIAGRAMA" src="https://github.com/acrisiopb/API_PARK_2025/blob/main/IMG%20GIT/Diagrama%20-%20BD.png">
+ 
+  <br/><br/>
+  
+  <h4>Relatório - Postman</h4>
+  <img align="center" alt="POSTMAN - REPORT " src="https://github.com/acrisiopb/API_PARK_2025/blob/main/IMG%20GIT/REPORT%202.png?raw=true">
+  <img align="center" alt="POSTMAN - REPORT " src="https://github.com/acrisiopb/API_PARK_2025/blob/main/IMG%20GIT/Report.png?raw=true">
+  
+  <br/><br/>
+  
+  <h4>SwaggerUI</h4>
+  <img align="center" alt="SwaggerUI " src="https://github.com/acrisiopb/API_PARK_2025/blob/main/IMG%20GIT/Swagger.png?raw=true">
+  
 </div>
 
 
