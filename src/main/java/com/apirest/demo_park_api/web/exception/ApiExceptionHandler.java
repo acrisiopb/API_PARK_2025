@@ -1,6 +1,5 @@
 package com.apirest.demo_park_api.web.exception;
 
-
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,6 +14,7 @@ import com.apirest.demo_park_api.exception.CodigoUniqueViolationException;
 import com.apirest.demo_park_api.exception.EntityNotFoundException;
 import com.apirest.demo_park_api.exception.PasswordInvalidException;
 import com.apirest.demo_park_api.exception.UsernameUniqueViolationException;
+import com.apirest.demo_park_api.exception.VagaDisponivelException;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +26,48 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice // Indica que esta classe trata exceções de forma global para os controladores
                       // REST
 public class ApiExceptionHandler {
-        
+
         private final MessageSource messageSource;
+
+        @ExceptionHandler(EntityNotFoundException.class)
+        public ResponseEntity<ErrorMessage> entityNotFoundException(EntityNotFoundException ex,
+                        HttpServletRequest request) {
+                Object[] params = new Object[] { ex.getRecurso(), ex.getCodigo() };
+                String message = messageSource.getMessage("exception.entityNotFoundException", params,
+                                request.getLocale());
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .body(new ErrorMessage(
+                                                request,
+                                                HttpStatus.NOT_FOUND,
+                                                message));
+        }
+
+        @ExceptionHandler(CodigoUniqueViolationException.class)
+        public ResponseEntity<ErrorMessage> codigoUniqueViolationException(CodigoUniqueViolationException ex,
+                        HttpServletRequest request) {
+                Object[] params = new Object[] { ex.getRecurso(), ex.getCodigo() };
+                String message = messageSource.getMessage("exception.codigoUniqueViolationException", params,
+                                request.getLocale());
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .body(new ErrorMessage(request,
+                                                HttpStatus.CONFLICT, message));
+        }
+
+        @ExceptionHandler(VagaDisponivelException.class)
+        public ResponseEntity<ErrorMessage> vagaDisponivelException(VagaDisponivelException ex,
+                        HttpServletRequest request) {
+
+                log.error("Api Error - ", ex);
+
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .body(new ErrorMessage(
+                                                request,
+                                                HttpStatus.NOT_FOUND,
+                                                ex.getMessage()));
+        }
 
         /**
          * Trata exceções do tipo MethodArgumentNotValidException,
@@ -55,28 +95,13 @@ public class ApiExceptionHandler {
                                 .body(new ErrorMessage( // Cria e retorna um objeto de erro personalizado
                                                 request,
                                                 HttpStatus.UNPROCESSABLE_ENTITY,
-                                                messageSource.getMessage("message.invalid.field", null,request.getLocale()), // Mensagem genérica de erro
+                                                messageSource.getMessage("message.invalid.field", null,
+                                                                request.getLocale()), // Mensagem genérica de erro
                                                 result // Passa o BindingResult para coletar os erros de validação
-                                                , messageSource
-                                ));
+                                                , messageSource));
         }
 
-        @ExceptionHandler(EntityNotFoundException.class)
-        public ResponseEntity<ErrorMessage> entityNotFoundException(EntityNotFoundException ex,
-                        HttpServletRequest request) {
-
-                log.error("Api Error - ", ex);
-
-                return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .body(new ErrorMessage(
-                                                request,
-                                                HttpStatus.NOT_FOUND,
-                                                ex.getMessage()));
-        }
-
-        @ExceptionHandler({ UsernameUniqueViolationException.class, CpfUniqueViolationException.class,
-                        CodigoUniqueViolationException.class })
+        @ExceptionHandler({ UsernameUniqueViolationException.class, CpfUniqueViolationException.class })
         public ResponseEntity<ErrorMessage> usernameUniqueViolationException(RuntimeException ex,
                         HttpServletRequest request) {
 
