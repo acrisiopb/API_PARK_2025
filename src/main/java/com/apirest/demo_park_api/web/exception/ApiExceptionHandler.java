@@ -58,15 +58,14 @@ public class ApiExceptionHandler {
         @ExceptionHandler(VagaDisponivelException.class)
         public ResponseEntity<ErrorMessage> vagaDisponivelException(VagaDisponivelException ex,
                         HttpServletRequest request) {
-
-                log.error("Api Error - ", ex);
-
+                String message = messageSource.getMessage("exception.vagaDisponivelException", null,
+                                request.getLocale());
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .body(new ErrorMessage(
                                                 request,
                                                 HttpStatus.NOT_FOUND,
-                                                ex.getMessage()));
+                                                message));
         }
 
         /**

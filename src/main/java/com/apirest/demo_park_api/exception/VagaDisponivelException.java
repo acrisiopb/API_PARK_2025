@@ -1,19 +1,23 @@
 package com.apirest.demo_park_api.exception;
 
+import lombok.Getter;
+
+@Getter
 public class VagaDisponivelException extends RuntimeException {
 
-    // private String recusrso;
-    // private String codigo;
+    private String recurso;
+    private String codigo;
     
     public VagaDisponivelException(String message) {
         super(message);
     }
 
-    // public VagaDisponivelException(String message, String recusrso, String codigo) {
-    //     super(message);
-    //     this.recusrso = recusrso;
-    //     this.codigo = codigo;
-    // }
+    public VagaDisponivelException(String recurso, String codigo) {
+        this.recurso = recurso;
+        this.codigo = codigo;
+    }
+
+   
 
     
 }
