@@ -47,7 +47,7 @@ public class ApiExceptionHandler {
         public ResponseEntity<ErrorMessage> entityNotFound(EntityNotFound ex,
                         HttpServletRequest request) {
                 Object[] params = new Object[] { ex.getRecurso(), ex.getCodigo() };
-                String message = messageSource.getMessage("exception.entityNotFound", params,
+                String message = messageSource.getMessage("exception.entityNotFound             ", params,
                                 request.getLocale());
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                                 .contentType(MediaType.APPLICATION_JSON)
