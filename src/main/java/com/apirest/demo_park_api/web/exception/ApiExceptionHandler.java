@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.apirest.demo_park_api.exception.CodigoUniqueViolationException;
+import com.apirest.demo_park_api.exception.EntityNotFound;
 import com.apirest.demo_park_api.exception.EntityNotFoundException;
 import com.apirest.demo_park_api.exception.PasswordInvalidException;
 import com.apirest.demo_park_api.exception.UsernameUniqueViolationException;
@@ -34,6 +35,19 @@ public class ApiExceptionHandler {
                         HttpServletRequest request) {
                 Object[] params = new Object[] { ex.getRecurso(), ex.getCodigo() };
                 String message = messageSource.getMessage("exception.entityNotFoundException", params,
+                                request.getLocale());
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .body(new ErrorMessage(
+                                                request,
+                                                HttpStatus.NOT_FOUND,
+                                                message));
+        }
+        @ExceptionHandler(EntityNotFound.class)
+        public ResponseEntity<ErrorMessage> entityNotFound(EntityNotFound ex,
+                        HttpServletRequest request) {
+                Object[] params = new Object[] { ex.getRecurso(), ex.getCodigo() };
+                String message = messageSource.getMessage("exception.entityNotFound", params,
                                 request.getLocale());
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                                 .contentType(MediaType.APPLICATION_JSON)
