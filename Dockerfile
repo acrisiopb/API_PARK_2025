@@ -10,7 +10,7 @@ VOLUME /tmp
 WORKDIR /app
 
 # Copia o JAR do build anterior
-COPY --from=builder /app/target/*.jar app.jar
+COPY --from=builder /app/target/demo-park-api-0.0.1-SNAPSHOT.jar app.jar
 
 # Expõe a porta padrão do Spring Boot
 EXPOSE 8080
