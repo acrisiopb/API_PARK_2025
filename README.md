@@ -27,8 +27,8 @@
   <br/><br/>
   
   <h4>SwaggerUI</h4>
-  <p>API - LINK --> <a href="https://deploy-api-park.onrender.com/swagger-ui/index.html#/"> <img align="center" src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white" alt="Badge Swagger">
-</a></p>
+  <p> LINK --> <a href="https://deploy-api-park.onrender.com/swagger-ui/index.html#/"> <img align="center" src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white" alt="Badge Swagger"></a></p>
+  <img align="center" alt="SwaggerUI " src="https://github.com/acrisiopb/API_PARK_2025/blob/main/IMG%20GIT/Swagger.png?raw=true">
   
 </div>
 
