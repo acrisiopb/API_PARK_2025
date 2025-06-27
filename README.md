@@ -10,6 +10,7 @@
   <img align="center" src="https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white" alt="Badge MySQL">
   <img align="center" src="https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white" alt="Badge Spring">
   <img align="center" src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white" alt="Badge Postman">
+  <a href="https://deploy-api-park.onrender.com/swagger-ui/index.html#/"> <img align="center" src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white" alt="Badge Swagger"></a>
 </div>
 
 
@@ -26,7 +27,8 @@
   <br/><br/>
   
   <h4>SwaggerUI</h4>
-  <img align="center" alt="SwaggerUI " src="https://github.com/acrisiopb/API_PARK_2025/blob/main/IMG%20GIT/Swagger.png?raw=true">
+  <p>API - LINK --> <a href="https://deploy-api-park.onrender.com/swagger-ui/index.html#/"> <img align="center" src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white" alt="Badge Swagger">
+</a></p>
   
 </div>
 
